@@ -13,6 +13,7 @@
 		4593DC1B1D47142A005906DC /* SumaponShot.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4593DC191D47142A005906DC /* SumaponShot.xcdatamodeld */; };
 		4593DC1D1D47142A005906DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4593DC1C1D47142A005906DC /* Assets.xcassets */; };
 		4593DC201D47142A005906DC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4593DC1E1D47142A005906DC /* LaunchScreen.storyboard */; };
+		4593DC281D4769BF005906DC /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4593DC271D4769BF005906DC /* CircleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		4593DC1C1D47142A005906DC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4593DC1F1D47142A005906DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4593DC211D47142A005906DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4593DC271D4769BF005906DC /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 			children = (
 				4593DC121D47142A005906DC /* AppDelegate.swift */,
 				4593DC141D47142A005906DC /* ViewController.swift */,
+				4593DC271D4769BF005906DC /* CircleView.swift */,
 				4593DC161D47142A005906DC /* Main.storyboard */,
 				4593DC1C1D47142A005906DC /* Assets.xcassets */,
 				4593DC1E1D47142A005906DC /* LaunchScreen.storyboard */,
@@ -138,6 +141,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4593DC281D4769BF005906DC /* CircleView.swift in Sources */,
 				4593DC151D47142A005906DC /* ViewController.swift in Sources */,
 				4593DC131D47142A005906DC /* AppDelegate.swift in Sources */,
 				4593DC1B1D47142A005906DC /* SumaponShot.xcdatamodeld in Sources */,
