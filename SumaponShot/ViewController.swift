@@ -48,10 +48,15 @@ class ViewController: UIViewController {
             drawCircle(point, radius: 10)
         }
         if touchList.count % 3 == 0 {
-            for tps in groupingPoint(self.touchList) {
-                drawCircle(tps.centerPoint(), radius: 100)
+            let tpss = groupingPoint(self.touchList)
+            for tps in tpss {
+                drawCircle(tps.centerPoint(), radius: 80)
+            }
+            if touchList.count == 6 {
+                drawLine(tpss[0].centerPoint(), point2: tpss[1].centerPoint())
             }
         }
+
     }
 
     func groupingPoint(touches: [TouchPoint]) -> [TouchPointSet] {
@@ -82,6 +87,20 @@ class ViewController: UIViewController {
         let layer = CAShapeLayer()
         layer.fillColor = UIColor.orangeColor().CGColor
         layer.path = path.CGPath
+
+        self.view.layer.addSublayer(layer)
+        circleLayers.append(layer)
+    }
+
+    func drawLine(point1: CGPoint, point2: CGPoint) {
+        let path: UIBezierPath = UIBezierPath();
+        path.moveToPoint(point1)
+        path.addLineToPoint(point2)
+
+        let layer = CAShapeLayer()
+        layer.path = path.CGPath
+        layer.strokeColor = UIColor.greenColor().CGColor
+        layer.lineWidth = 3.0
 
         self.view.layer.addSublayer(layer)
         circleLayers.append(layer)
