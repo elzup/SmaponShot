@@ -43,13 +43,13 @@ class ViewController: UIViewController {
         if touchList.isEmpty {
             return
         }
+        for touch in touchList {
+            let point = touch.touch.locationInView(self.view)
+            drawCircle(point, radius: 10)
+        }
         if touchList.count % 3 == 0 {
             for tps in groupingPoint(self.touchList) {
-                for touch in tps.touchPoints {
-                    let point = touch.touch.locationInView(self.view)
-                    drawCircle(point)
-                }
-                drawCircle(tps.centerPoint())
+                drawCircle(tps.centerPoint(), radius: 100)
             }
         }
     }
@@ -70,14 +70,14 @@ class ViewController: UIViewController {
         return sets
     }
 
-    func drawCircle(point: CGPoint) {
+    func drawCircle(point: CGPoint, radius: CGFloat) {
         let pi = CGFloat(M_PI)
         let start:CGFloat = 0.0 // 開始の角度
         let end :CGFloat = pi * 2.0 // 終了の角度
         
         let path: UIBezierPath = UIBezierPath();
         path.moveToPoint(point)
-        path.addArcWithCenter(point, radius: 10, startAngle: start, endAngle: end, clockwise: true) // 円弧
+        path.addArcWithCenter(point, radius: radius, startAngle: start, endAngle: end, clockwise: true) // 円弧
         
         let layer = CAShapeLayer()
         layer.fillColor = UIColor.orangeColor().CGColor
