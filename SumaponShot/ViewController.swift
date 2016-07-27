@@ -33,9 +33,13 @@ class ViewController: UIViewController {
     }
 
     func drawUpdate() {
+        // デバッグカウント表示
+        tapCountLabel.text = String(touchList.count)
         for layer in circleLayers {
             layer.removeFromSuperlayer()
         }
+
+        // リセットして Point に Circle 再描画
         if touchList.isEmpty {
             return
         }
