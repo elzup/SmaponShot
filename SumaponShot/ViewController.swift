@@ -27,7 +27,7 @@ class ViewController: UIViewController {
 
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         touchList.appendContentsOf(touches.map({ (touch: UITouch) -> TouchPoint in
-            return TouchPoint(touch: touch)
+            return TouchPoint(touch: touch, point: touch.locationInView(self.view))
         }))
         drawUpdate()
     }
@@ -49,6 +49,7 @@ class ViewController: UIViewController {
                     let point = touch.touch.locationInView(self.view)
                     drawCircle(point)
                 }
+                drawCircle(tps.centerPoint())
             }
         }
     }
@@ -62,7 +63,7 @@ class ViewController: UIViewController {
         for tp in sorted {
             touchSet.insert(tp)
             if touchSet.count == 3 {
-                sets.append(TouchPointSet(touchPoints: touchSet))
+                sets.append(TouchPointSet(touchPoints: Array(touchSet)))
                 touchSet.removeAll()
             }
         }
@@ -76,7 +77,7 @@ class ViewController: UIViewController {
         
         let path: UIBezierPath = UIBezierPath();
         path.moveToPoint(point)
-        path.addArcWithCenter(point, radius: 100, startAngle: start, endAngle: end, clockwise: true) // 円弧
+        path.addArcWithCenter(point, radius: 10, startAngle: start, endAngle: end, clockwise: true) // 円弧
         
         let layer = CAShapeLayer()
         layer.fillColor = UIColor.orangeColor().CGColor
