@@ -21,10 +21,13 @@ class ViewController: UIViewController {
         touchList.appendContentsOf(touches.map({ (touch: UITouch) -> TouchPoint in
             return TouchPoint(touch: touch)
         }))
+        drawUpdate()
+    }
+
+    func drawUpdate() {
         for layer in circleLayers {
             layer.removeFromSuperlayer()
         }
-        circleLayers = []
         if touchList.count % 3 == 0 {
             for tps in groupingPoint(self.touchList) {
                 for touch in tps.touchPoints {
@@ -77,5 +80,6 @@ class ViewController: UIViewController {
             }
             touchList.removeAtIndex(i)
         }
+        drawUpdate()
     }
 }
