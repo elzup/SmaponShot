@@ -2,7 +2,8 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var touchList = [UITouch]()
+    var touchList = [TouchPoint]()
+    var circleLayers = [CAShapeLayer]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,15 +18,37 @@ class ViewController: UIViewController {
     var tapLocation: CGPoint = CGPoint()
 
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        touchList.appendContentsOf(touches)
-        // タッチイベントを取得する
-        let touch = touches.first
-        // タップした座標を取得する
-        tapLocation = touch!.locationInView(self.view)
-        touches.forEach { (touch: UITouch) in
-            let point = touch.locationInView(self.view)
-            drawCircle(point)
+        touchList.appendContentsOf(touches.map({ (touch: UITouch) -> TouchPoint in
+            return TouchPoint(touch: touch)
+        }))
+        for layer in circleLayers {
+            layer.removeFromSuperlayer()
         }
+        circleLayers = []
+        if touchList.count % 3 == 0 {
+            for tps in groupingPoint(self.touchList) {
+                for touch in tps.touchPoints {
+                    let point = touch.touch.locationInView(self.view)
+                    drawCircle(point)
+                }
+            }
+        }
+    }
+
+    func groupingPoint(touches: [TouchPoint]) -> [TouchPointSet] {
+        let sorted = touches.sort { (u1: TouchPoint, u2: TouchPoint) -> Bool in
+            u1.timestamp - u2.timestamp > 0
+        }
+        var sets = [TouchPointSet]()
+        var touchSet = Set<TouchPoint>()
+        for tp in sorted {
+            touchSet.insert(tp)
+            if touchSet.count == 3 {
+                sets.append(TouchPointSet(touchPoints: touchSet))
+                touchSet.removeAll()
+            }
+        }
+        return sets
     }
 
     func drawCircle(point: CGPoint) {
@@ -35,18 +58,21 @@ class ViewController: UIViewController {
         
         let path: UIBezierPath = UIBezierPath();
         path.moveToPoint(point)
-        path.addArcWithCenter(point, radius: 10, startAngle: start, endAngle: end, clockwise: true) // 円弧
+        path.addArcWithCenter(point, radius: 100, startAngle: start, endAngle: end, clockwise: true) // 円弧
         
         let layer = CAShapeLayer()
         layer.fillColor = UIColor.orangeColor().CGColor
         layer.path = path.CGPath
 
         self.view.layer.addSublayer(layer)
+        circleLayers.append(layer)
     }
 
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         touches.forEach { (touch) in
-            guard let i = touchList.indexOf(touch) else {
+            guard let i = touchList.map({ (tp: TouchPoint) -> UITouch in
+                return tp.touch
+            }).indexOf(touch) else {
                 return
             }
             touchList.removeAtIndex(i)
