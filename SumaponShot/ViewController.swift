@@ -5,6 +5,14 @@ class ViewController: UIViewController {
     var touchList = [TouchPoint]()
     var circleLayers = [CAShapeLayer]()
 
+    @IBOutlet weak var clearButton: UIButton!
+    @IBOutlet weak var tapCountLabel: UILabel!
+    @IBAction func buttonTapped(sender:AnyObject) {
+        // touch 検知の リセット
+        touchList = []
+        drawUpdate()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.multipleTouchEnabled = true;
@@ -27,6 +35,9 @@ class ViewController: UIViewController {
     func drawUpdate() {
         for layer in circleLayers {
             layer.removeFromSuperlayer()
+        }
+        if touchList.isEmpty {
+            return
         }
         if touchList.count % 3 == 0 {
             for tps in groupingPoint(self.touchList) {
