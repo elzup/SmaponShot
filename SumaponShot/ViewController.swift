@@ -23,19 +23,19 @@ class ViewController: UIViewController {
         // タップした座標を取得する
         tapLocation = touch!.locationInView(self.view)
         touches.forEach { (touch: UITouch) in
-            touch.locationInView(self.view)
+            let point = touch.locationInView(self.view)
+            drawCircle(point)
         }
-
     }
 
-    func drawCircle(x: CGFloat, y: CGFloat) {
+    func drawCircle(point: CGPoint) {
         let pi = CGFloat(M_PI)
         let start:CGFloat = 0.0 // 開始の角度
         let end :CGFloat = pi * 2.0 // 終了の角度
         
         let path: UIBezierPath = UIBezierPath();
-        path.moveToPoint(CGPointMake(x, y))
-        path.addArcWithCenter(CGPointMake(self.view.frame.width/2, self.view.frame.height/2), radius: 100, startAngle: start, endAngle: end, clockwise: true) // 円弧
+        path.moveToPoint(point)
+        path.addArcWithCenter(point, radius: 10, startAngle: start, endAngle: end, clockwise: true) // 円弧
         
         let layer = CAShapeLayer()
         layer.fillColor = UIColor.orangeColor().CGColor
